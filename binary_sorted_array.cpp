@@ -5,7 +5,8 @@ int findO(int arr[], int  u, int l ,int k){
     int mid;
     int loc = -1;
     while(l<=u){
-        mid = (l+u)/2;
+        int t = l+u;
+        mid = t/2;
         if(arr[mid] > k){
             u = mid-1;
         }else if(arr[mid]<k){
