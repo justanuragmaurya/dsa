@@ -1,54 +1,54 @@
 #include<bits/stdc++.h>
 using namespace std;
+void merge(int arr[], int l, int m, int r){
+    int n1 = m - l + 1;
+    int n2 = r - m;
 
-void merge(vector<int> &arr, int l, int m, int r){
-        vector<int> temp;
-        int left = l;
-        int right = m+1;
-        
-        while(left<=m && right<=r){
-            if(arr[left]<=arr[right]){
-                temp.push_back(arr[left]);
-                left++;
-            }
-            if(arr[right]<=arr[left]){
-                temp.push_back(arr[right]);
-                right++;
-            }
+    int leftArr[n1], rightArr[n2];
+
+    for (int i = 0; i < n1; i++)
+        leftArr[i] = arr[l + i];
+    for (int j = 0; j < n2; j++)
+        rightArr[j] = arr[m + 1 + j];
+
+    int i = 0, j = 0, k = l;
+    while (i < n1 && j < n2) {
+        if (leftArr[i] <= rightArr[j]) {
+            arr[k] = leftArr[i];
+            i++;
+        } else {
+            arr[k] = rightArr[j];
+            j++;
         }
-        while(left<=m){
-            temp.push_back(arr[left]);
-            left++;
-        }
-        while(right<=r){
-            temp.push_back(arr[right]);
-            right++;
-        }
-        
-        for (int i = l ; i <= r ; i++){
-            arr[i] = temp[i-l];
-        }
+        k++;
+    }
+
+    while (i < n1) {
+        arr[k] = leftArr[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = rightArr[j];
+        j++;
+        k++;
+    }
 }
 
-void mergeSort(vector<int> &arr,int l , int r){
-    if(l>=r){
+void mergeSort(int arr[], int l, int r){
+    if (l >= r) {
         return;
     }
-        
-    int m = (l+r)/2;
-        
-    mergeSort(arr,l,m);
-    mergeSort(arr,m+1,r);
-        
-    merge(arr,l,m,r);
+    int m = (l + r) / 2;
+    mergeSort(arr, l, m);
+    mergeSort(arr, m + 1, r);
+    merge(arr, l, m, r);
 }
-
-
-
 
 int main() {
 
-    vector<int> arr = {4,7,6,5,4,5,5,5,7,3,2,1}  ;
+    int arr[] = {4,7,6,5,4,5,5,5,7,3,2,1}  ;
     int n = 7;
 
     cout << "Before Sorting Array: " << endl;
